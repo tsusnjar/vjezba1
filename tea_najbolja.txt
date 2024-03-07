@@ -1,0 +1,151 @@
+namespace liste_vj01
+{
+    internal class Program
+    {
+        //1.Napisati program koji upisuje podatke o n klubova u listu. Listu klubova deklarirati u glavnom programu. 
+        static void Main(string[] args)
+        {
+            List<Klub> Klubovi = new List<Klub>();
+            int n;
+            Console.Write("Unesite broj klubova: ");
+            n = int.Parse(Console.ReadLine());
+            for (int i = 0; i < n; i++)
+            {
+                Klub k = new Klub();
+                Klubovi.Add(k);
+            }
+            //-  U glavnom programu ispisati:
+            // a) Unijeti n klubova u listu i ispisati podatke o prvaku
+
+            Klub Max = Klubovi[0];
+            foreach (Klub k in Klubovi)
+            {
+                if (k.brojBodova > Max.brojBodova)
+                    Max = k;
+            }
+            Console.Write("Prvak je: ");
+            Max.Ispis();
+
+            // b) podatke o klubovima koji su osvojili vise bodova od prosjeka poredane uzlazno
+
+            double p=1, S = 0;
+            foreach (Klub k in Klubovi)
+            {
+                S += k.brojBodova;
+            }
+            p = S/Klubovi.Count;
+            foreach (Klub k in Klubovi)
+            {
+                if (k.brojBodova > p)
+                    k.Ispis();
+            }
+
+
+            //c) za određenog trenera (ime i prezime unosi korisnik)ispisati podatke o klubu kojeg on trenira
+
+            Console.Write("Unesite ime i prezime trenera o cijem klubu zelite znati podatke: ");
+            
+
+
+
+
+
+            // d) podatke o klubovima koji imaju negativnu gol razliku (vise primili nego dali golova) poredane silazno.
+            //e) podatke o klubu kojeg trenira trener koji je najbolje plaćen
+
+
+
+        }
+    }
+}
+using liste_vj01;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace liste_vj01
+{
+    //- Napraviti klasu Klub sa atributima: naziv, broj bodova, broj danih, broj primljenih golova i jednu instancu klase trener.  
+    //- 2 konstruktora klase Klub (jedan bez argumenata u kojem se unose podaci i drugi kojem se podaci prosljeđuju
+     class Klub
+    {
+        string _naziv;
+        int _brojBodova;
+        int _brojDanih;
+        int _brojPrimljenih;
+        Trener _trener;
+
+        public int brojBodova
+        {
+            get { return _brojBodova; }
+        }
+
+
+        public Klub()
+        {
+            Console.Write("Unesite naziv kluba: ");
+            _naziv = Console.ReadLine();
+            Console.Write("Unesite broj bodova koji klub ima: ");
+            _brojBodova=int.Parse(Console.ReadLine());
+            Console.Write("Unesite broj danih golova: ");
+            _brojDanih = int.Parse(Console.ReadLine());
+            Console.Write("Unesite broj primljenih golova: ");
+            _brojPrimljenih = int.Parse(Console.ReadLine());
+            Trener _trener = new Trener();
+        }
+
+        public Klub(string naziv, int brojBodova, int brojDanih, int brojPrimljenih, Trener trener)
+        {
+            _naziv = naziv;
+            _brojBodova = brojBodova;
+            _brojDanih = brojDanih;
+            _brojPrimljenih = brojPrimljenih;
+            _trener = trener;
+        }
+        public void Ispis()
+        {
+            Console.Write("Naziv kluba: {0} \n Broj bodova: {1} \n Broj danih golova: {2} \n Broj primljenih golova: {3} \n ", _naziv, _brojBodova, _brojDanih, _brojPrimljenih);
+            _trener.ispisTrenera();
+            Console.WriteLine();
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace liste_vj01
+{
+    //- Napraviti klasu trener sa atributima: ime, prezime, dob, plaća.
+    //- 1 konstruktor u kojem se unose atributi.
+    internal class Trener
+    {
+        string _ime;
+        string _prezime;
+        int _dob;
+        double _placa;
+
+        public Trener()
+        {
+            Console.Write("Unesite ime trenera: ");
+            _ime = Console.ReadLine();
+            Console.Write("Unesite prezime trenera: ");
+            _prezime = Console.ReadLine();
+            Console.Write("Unesite dob trenera: ");
+            _dob = int.Parse(Console.ReadLine());
+            Console.Write("Unesite iznos place: ");
+            _placa= double.Parse(Console.ReadLine());
+        }
+        public void ispisTrenera()
+        {
+            Console.Write("Ime: {0} \n Prezime: {1} \n Dob: {2} \n Placa: {3} \n ", _ime, _prezime, _dob, _placa);
+        }
+    }
+}
